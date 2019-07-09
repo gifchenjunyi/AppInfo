@@ -90,7 +90,11 @@
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
 			<props>
-				<prop key="java.lang.RuntimeException">error</prop>
+				<prop key="java.lang.RuntimeException">devlogin</prop>
+				<prop key="java.lang.ArithmeticException">error</prop>
+				<prop key="java.lang.NumberFormatException">error</prop>
+				<prop key="java.lang.ArrayIndexOutOfBoundsException">error</prop>
+				<prop key="java.lang.NullPointerException">error</prop>
 			</props>
 		</property>
 	</bean>

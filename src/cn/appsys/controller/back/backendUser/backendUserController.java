@@ -1,12 +1,12 @@
-package cn.appsys.controller.back;
+package cn.appsys.controller.back.backendUser;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/backendloginuser")
-public class backendLoginUserController {
+@RequestMapping("/backenduser")
+public class backendUserController {
 
 	    //跳转到后台登录页面
 		@RequestMapping("/tobackendLoginUser")

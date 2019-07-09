@@ -1,14 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
-http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/aop
-http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/tx
-http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/context
-http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd"
+	default-autowire="byName">  <!-- 根据名字自动匹配 -->
+
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url">
+			<value><![CDATA[jdbc:mysql://localhost:3306/appinfodb?zeroDateTimeBehavior=convertToNull&useUnicode=true&amp;characterEncoding=utf-8]]></value>
+		</property>
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+		<!-- 配置sql心跳 -->
+		<!-- <property name="initialSize" value="${initialSize}" />
+		<property name="maxActive" value="${maxActive}" />
+		<property name="maxIdle" value="${maxIdle}" />
+		<property name="minIdle" value="${minIdle}" />
+		<property name="maxWait" value="${maxWait}" />
+		<property name="removeAbandoned" value="${removeAbandoned}" />
+		<property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" /> -->
+		<!-- sql心跳 -->
+		<!-- <property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="validationQuery" value="select 1" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="numTestsPerEvictionRun" value="${maxActive}" /> -->
+	</bean>
+	
+	<!-- <context:property-placeholder location="classpath:jdbc.properties" 
+		/> <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close"> <property name="driverClassName" value="${driver}" 
+		/> <property name="url" value="${url}" /> <property name="username" value="${user}" 
+		/> <property name="password" value="${password}" /> </bean> -->
+		
+	<!-- 配置SqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 引用数据源组件 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 引用的Mybatis配置文件中的配置 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<!-- 配置SQL映射文件信息 -->
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:cn/appsys/dao/**/*.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置DAO -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.appsys.dao"></property>
+	</bean>
+
+	<!-- 配置sqlSessionTemplate -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
+		scope="prototype">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+
+	<!-- 配置扫描注解定义的业务Bean -->
 	<context:component-scan base-package="cn.appsys.service" />
-	<context:component-scan base-package="cn.appsys.dao" />
+
+	<!-- 定义事务管理器 -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="txManager" />
+
+	<!-- 通过<tx:advice>标签为指定的事务管理器设置事务属性 -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<!-- 定义属性,声明事务规则 -->
+		<tx:attributes>
+			<tx:method name="find*" propagation="SUPPORTS" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<!-- 定义切入点 -->
+		<aop:pointcut expression="execution(* cn.appsys.service..*.*(..))"
+			id="serviceMethod" />
+		<!-- 将事务增强与切入点结合 -->
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod" />
+	</aop:config>
+	
 </beans>
