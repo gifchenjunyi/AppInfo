@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import cn.appsys.dao.deve.devUser.devUserMapper;
+import cn.appsys.dao.deve.devUser.DevUserMapper;
 import cn.appsys.pojo.DevUser;
 import cn.appsys.service.deve.devUser.DevUserService;
 
@@ -12,7 +12,7 @@ import cn.appsys.service.deve.devUser.DevUserService;
 public class DevUserSrviceImpl implements DevUserService{
 	
 	@Resource(name="devUserMapper")
-	private devUserMapper devUserMapper;
+	private DevUserMapper devUserMapper;
 
 	/**
 	 * 登录
