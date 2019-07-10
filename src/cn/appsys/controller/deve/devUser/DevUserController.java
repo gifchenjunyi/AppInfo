@@ -2,6 +2,8 @@ package cn.appsys.controller.deve.devUser;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,14 @@ public class DevUserController {
 	@Resource(name="devUserService")
 	private DevUserService devUserService;
 	
+	@RequestMapping("Exit")
+	public String Exit(HttpSession session) {
+		//通过invalidate（）进行注释
+	     session.invalidate();
+		return "redirect:/index.jsp";
+	
+		
+	}
 	
 	//负责处理前台登录
     @RequestMapping(value="/dodveLogin",method=RequestMethod.POST)
@@ -50,7 +60,7 @@ public class DevUserController {
 	//跳转到index主页面
 	@RequestMapping("/")
 	public String toIndex(){
-		return "index";
+		return "../index";
 	}
 	
 	

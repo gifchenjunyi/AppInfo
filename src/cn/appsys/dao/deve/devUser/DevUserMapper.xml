@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.appsys.dao.deve.devUser.devUserMapper">
+<mapper namespace="cn.appsys.dao.deve.devUser.DevUserMapper">
     <!-- 通过用户名和密码查询指定用户信息 -->
 	<select id="DevLogin" resultType="DevUser">
 		SELECT 	* FROM dev_user WHERE devCode =#{devCode} and devPassword= #{devPassword}
