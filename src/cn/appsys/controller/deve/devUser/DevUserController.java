@@ -21,7 +21,7 @@ public class DevUserController {
 	@Resource(name="devUserService")
 	private DevUserService devUserService;
 	
-	@RequestMapping("Exit")
+	@RequestMapping("/Exit")
 	public String Exit(HttpSession session) {
 		//通过invalidate（）进行注释
 	     session.invalidate();
