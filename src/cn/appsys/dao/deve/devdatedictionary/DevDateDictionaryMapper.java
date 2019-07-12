@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import cn.appsys.pojo.DataDictionary;
 
 public interface DevDateDictionaryMapper {
-     /**
-      * 通过类型去查找数据字典的相关信息
-      */
+	/**
+     * 通过类型去查找数据字典的相关信息
+     */
 	List<DataDictionary> queryByTypeCode(@Param("typeCode")String typeCode);
 }

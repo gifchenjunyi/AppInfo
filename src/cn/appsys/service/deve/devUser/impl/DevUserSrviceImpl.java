@@ -11,8 +11,16 @@ import cn.appsys.service.deve.devUser.DevUserService;
 @Service("devUserService")
 public class DevUserSrviceImpl implements DevUserService{
 	
-	@Resource(name="devUserMapper")
+	@Resource
 	private DevUserMapper devUserMapper;
+
+	public DevUserMapper getDevUserMapper() {
+		return devUserMapper;
+	}
+
+	public void setDevUserMapper(DevUserMapper devUserMapper) {
+		this.devUserMapper = devUserMapper;
+	}
 
 	/**
 	 * 登录

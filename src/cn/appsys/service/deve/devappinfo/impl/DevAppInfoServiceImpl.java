@@ -11,7 +11,7 @@ import cn.appsys.dao.deve.devappinfo.DevAppInfoMapper;
 import cn.appsys.pojo.AppInfo;
 import cn.appsys.service.deve.devappinfo.DevAppInfoService;
 
-@Service("devappInfoService")
+@Service("devAppInfoService")
 public class DevAppInfoServiceImpl implements DevAppInfoService {
 	@Resource(name="devAppInfoMapper")
 	private DevAppInfoMapper devAppInfoMapper;

@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.appsys.dao.deve.devdatedictionary.DevDateDictionaryMapper">
    <!-- 通过类型编码查询数据字典的相关信息 -->
-   <select id="queryByTypeCode" resultType="DateDictionary">
+   <select id="queryByTypeCode" resultType="DataDictionary">
         select * from data_dictionary where type = #{typeCode}
    </select>
 

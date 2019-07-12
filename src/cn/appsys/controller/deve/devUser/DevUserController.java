@@ -18,9 +18,17 @@ import cn.appsys.service.deve.devUser.DevUserService;
 @RequestMapping("/devuser")
 public class DevUserController {
 	
-	@Resource(name="devUserService")
+	@Resource
 	private DevUserService devUserService;
 	
+	public DevUserService getDevUserService() {
+		return devUserService;
+	}
+
+	public void setDevUserService(DevUserService devUserService) {
+		this.devUserService = devUserService;
+	}
+
 	@RequestMapping("/Exit")
 	public String Exit(HttpSession session) {
 		//通过invalidate（）进行注释

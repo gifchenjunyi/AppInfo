@@ -21,7 +21,7 @@ import cn.appsys.service.deve.devdatadictionary.DevDataDictionaryService;
 @RequestMapping("devappinfo")
 public class DevInfoController {
 	
-	@Resource(name="devUserService")
+	@Resource(name="devAppInfoService")
 	private DevAppInfoService devAppInfoService;
 	
 	@Resource(name="devDataDictionaryService")
@@ -90,7 +90,7 @@ public class DevInfoController {
 			model.addAttribute("categoryLevel3List", categoryLevel3List);
 			model.addAttribute("page",page );
 			
-			return "developer/appinfolist";
+			return "developer/appinfolist";  //跳转到APP品牌页面
 		}
 	
 }
