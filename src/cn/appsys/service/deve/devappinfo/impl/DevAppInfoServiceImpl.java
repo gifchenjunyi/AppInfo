@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import cn.appsys.dao.deve.devUser.DevUserMapper;
@@ -35,5 +36,44 @@ public class DevAppInfoServiceImpl implements DevAppInfoService {
 			Integer queryCategoryLevel2, Integer queryCategoryLevel3) {
 		return devAppInfoMapper.queryCount(querySoftwareName, queryStatus, queryFlatformId, queryCategoryLevel1, queryCategoryLevel2, queryCategoryLevel3);
 	}
+
+	/**
+	 * 新增APP
+	 */
+	public int devAddApp(AppInfo appInfo) {
+		return devAppInfoMapper.devAddApp(appInfo);
+	}
+
+	/**
+	 * 删除APP
+	 */
+	public int devDeleteApp(Integer id) {
+		return devAppInfoMapper.devDeleteApp(id);
+	}
+
+	/**
+	 * 查看APP信息
+	 */
+	public AppInfo devgetAppPageInfo(Integer id) {
+		return devAppInfoMapper.devgetAppPageInfo(id);
+	}
+
+	/**
+	 * 修改APP信息
+	 */
+	public int devUpdateAppInfo(AppInfo appInfo) {
+		return devAppInfoMapper.devUpdateAppInfo(appInfo);
+	}
+
+	@Override
+	public AppInfo queryInfoByIdAndAPK(Integer id, String APKName) {
+		return devAppInfoMapper.queryInfoByIdAndAPK(id, APKName);
+	}
+
+	
+	
+	
+	
+	
 
 }

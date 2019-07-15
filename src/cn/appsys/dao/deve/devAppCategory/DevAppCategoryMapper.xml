@@ -4,13 +4,13 @@
 <mapper namespace="cn.appsys.dao.deve.devAppCategory.DevAppCategoryMapper">
    <select id="queryById" resultType="AppCategory">
        select id,categoryCode,categoryName 
-             FROM appinfodb.app_category 
+             FROM app_category 
        <where>
        		<if test="parentId != null">
        		    and parentId = #{parentId}
        		</if>
        		<!-- 即查询的是一级分类 -->
-       		<if test="parentId != null">
+       		<if test="parentId == null">
        		    and parentId is null
        		</if>
        </where>

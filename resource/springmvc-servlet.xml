@@ -105,6 +105,7 @@
 		<property name="maxUploadSize" value="5000000" />
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
+	
 
 	<!-- 自定义拦截器 -->
 	<mvc:interceptors>

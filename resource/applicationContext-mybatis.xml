@@ -67,10 +67,10 @@
 	</bean>
 
 	<!-- 配置sqlSessionTemplate -->
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
+	<!-- <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
 		scope="prototype">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
-	</bean>
+	</bean> -->
 
 	<!-- 配置扫描注解定义的业务Bean -->
 	<context:component-scan base-package="cn.appsys.service" />
