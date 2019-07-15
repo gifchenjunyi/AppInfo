@@ -95,7 +95,7 @@ $(function(){
 	});
 	
 	$("#back").on("click",function(){
-		window.location.href = "list";
+		window.location.href = path+"/devappinfo/develist";
 	});
 	
 	$("#APKName").bind("blur",function(){

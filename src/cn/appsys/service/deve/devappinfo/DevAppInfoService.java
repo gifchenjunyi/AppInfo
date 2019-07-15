@@ -63,5 +63,13 @@ public interface DevAppInfoService {
  	 * @return app详情信息。
  	 */
  	AppInfo queryInfoByIdAndAPK(Integer id,String APKName);
+ 	
+ 	
+ 	/**
+  	 * 修改状态
+  	 * @param appInfo
+  	 * @return
+  	 */
+  	int updateStatus(AppInfo appInfo);
  
 }

@@ -71,6 +71,14 @@ public class DevAppInfoServiceImpl implements DevAppInfoService {
 	}
 
 	
+	/**
+	 * 修改状态上架下架
+	 */
+	public int updateStatus(AppInfo appInfo) {
+		return devAppInfoMapper.updateStatus(appInfo);
+	}
+
+	
 	
 	
 	

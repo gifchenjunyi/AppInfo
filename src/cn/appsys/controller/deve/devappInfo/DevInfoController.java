@@ -36,6 +36,8 @@ import cn.appsys.service.deve.devdatadictionary.DevDataDictionaryService;
 @RequestMapping("/devappinfo")
 public class DevInfoController {
 	
+	private static final int Map = 0;
+
 	@Resource(name="devAppInfoService")
 	private DevAppInfoService devAppInfoService;
 	
@@ -44,6 +46,30 @@ public class DevInfoController {
 	
 	@Resource(name="devAppCategoryService")
 	private DevAppCategoryService devAppCategoryService;
+	
+	
+	//上架下架
+	@RequestMapping(value="/UpadateStatus",method=RequestMethod.PUT)
+	@ResponseBody
+	public Object UpadateStatus(@RequestParam("appId")Integer appId){
+		HashMap<String, Object> hashMap = new HashMap<String,Object>();
+		AppInfo appInfo = devAppInfoService.devgetAppPageInfo(appId);
+		if (appInfo.getStatus() == 4) {
+			  appInfo.setStatus(5);
+			  appInfo.setOffSaleDate(new Date());
+		}else if (appInfo.getStatus() == 5) {
+			  appInfo.setStatus(4);
+			  appInfo.setOnSaleDate(new Date());
+		}
+		int result = devAppInfoService.updateStatus(appInfo);
+		if (result > 0) {
+			hashMap.put("resultMsg", "success");
+			hashMap.put("errorCode", "0");
+		}else {
+			hashMap.put("resultMsg", "failed");
+		}
+		return hashMap;
+	}
 	
 	
 	/*验证apkName是否存在 */

@@ -176,4 +176,15 @@
 		</where>
 	</select>
 	
+	<!-- 修改状态上架下架 -->
+	<update id="updateStatus" parameterType="AppInfo">
+	  	UPDATE `app_info`
+	  	<set>
+	    	<if test="status != null and status != 0"> status = #{status}, </if>
+			<if test="onSaleDate != null and onSaleDate !=''"> onSaleDate = #{onSaleDate}, </if>
+			<if test="offSaleDate != null and offSaleDate !=''"> offSaleDate = #{offSaleDate}, </if>
+	    </set> 
+	     where id=#{id}
+	 </update>
+	
 </mapper>

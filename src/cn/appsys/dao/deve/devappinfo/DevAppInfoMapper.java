@@ -66,5 +66,12 @@ public interface DevAppInfoMapper {
   	 * @return app详情信息。
   	 */
   	AppInfo queryInfoByIdAndAPK(@Param("id") Integer id,@Param("APKName") String APKName);
+  	
+  	/**
+  	 * 修改状态
+  	 * @param appInfo
+  	 * @return
+  	 */
+  	int updateStatus(AppInfo appInfo);
     		
 }

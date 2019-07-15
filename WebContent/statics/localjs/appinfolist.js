@@ -104,7 +104,7 @@ $(document).on("click",".saleSwichOpen,.saleSwichClose",function(){
 var saleSwitchAjax = function(appId,obj){
 	$.ajax({
 		type:"PUT",
-		url:appId+"/sale.json",
+		url:path+"/devappinfo/UpadateStatus?appId="+appId,
 		dataType:"json",
 		success:function(data){
 			/*
